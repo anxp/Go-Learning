@@ -7,16 +7,19 @@ import (
 	"os"
 )
 
+//Struct, which describes triangle properties. Our triangle defined by three sides.
 type Triangle struct {
 	sideA, sideB, sideC float64
 }
 
+//This is a setter for all 3 triangle sides
 func (t *Triangle) SetSides(a, b, c float64) {
 	t.sideA = a
 	t.sideB = b
 	t.sideC = c
 }
 
+//Method to check if triangle right or not (right triangle has 90-degree angle)
 func (t Triangle) IsThisRightTriangle() bool {
 	if math.Pow(t.sideA, 2) + math.Pow(t.sideB, 2) == math.Pow(t.sideC, 2) {
 		return true
@@ -25,6 +28,7 @@ func (t Triangle) IsThisRightTriangle() bool {
 	}
 }
 
+//Method to calculate triangle area by Heron's formula
 func (t Triangle) GetArea() (float64, error) {
 	var halfPerimeter float64
 	var area float64
@@ -39,6 +43,7 @@ func (t Triangle) GetArea() (float64, error) {
 	}
 }
 
+//Method to calculate area of _right_ triangle. Just as (a*b)/2
 func (t Triangle) GetRightTriangleArea() (float64, error) {
 	var err error
 	if t.IsThisRightTriangle() {
@@ -49,7 +54,7 @@ func (t Triangle) GetRightTriangleArea() (float64, error) {
 
 }
 
-//Just most simplest implementation of Bubble Sorting Algo:
+//Just _most_simplest_ implementation of Bubble Sorting Algo:
 func (t Triangle) sortDesc(x, y, z float64) (float64, float64, float64) {
 	var inputData [3]float64 = [3]float64{x, y, z}
 
@@ -64,6 +69,7 @@ func (t Triangle) sortDesc(x, y, z float64) (float64, float64, float64) {
 	return inputData[0], inputData[1], inputData[2]
 }
 
+//Method to check if user submitted 3 sides can make a triangle or not
 func (t Triangle) isThisATriangle() bool {
 	var a, b, c = t.sortDesc(t.sideA, t.sideB, t.sideC)
 
