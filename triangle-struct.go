@@ -21,7 +21,7 @@ func (t *Triangle) SetSides(a, b, c float64) {
 
 //Method to check if triangle right or not (right triangle has 90-degree angle)
 func (t Triangle) IsThisRightTriangle() bool {
-	if math.Pow(t.sideA, 2) + math.Pow(t.sideB, 2) == math.Pow(t.sideC, 2) {
+	if math.Pow(t.sideA, 2)+math.Pow(t.sideB, 2) == math.Pow(t.sideC, 2) {
 		return true
 	} else {
 		return false
@@ -35,8 +35,8 @@ func (t Triangle) GetArea() (float64, error) {
 	var err error
 
 	if t.isThisATriangle() {
-		halfPerimeter = (t.sideA+t.sideB+t.sideC)/2
-		area = math.Sqrt(halfPerimeter*(halfPerimeter - t.sideA)*(halfPerimeter - t.sideB)*(halfPerimeter - t.sideC))
+		halfPerimeter = (t.sideA + t.sideB + t.sideC) / 2
+		area = math.Sqrt(halfPerimeter * (halfPerimeter - t.sideA) * (halfPerimeter - t.sideB) * (halfPerimeter - t.sideC))
 		return area, err
 	} else {
 		return 0, errors.New("Submitted data (sides) does not compose in triangle!")
@@ -47,7 +47,7 @@ func (t Triangle) GetArea() (float64, error) {
 func (t Triangle) GetRightTriangleArea() (float64, error) {
 	var err error
 	if t.IsThisRightTriangle() {
-		return (t.sideA * t.sideB)/2, err
+		return (t.sideA * t.sideB) / 2, err
 	} else {
 		return 0, errors.New("Can't apply GetRightTriangleArea() method to non-right triangle!")
 	}
@@ -58,8 +58,8 @@ func (t Triangle) GetRightTriangleArea() (float64, error) {
 func (t Triangle) sortDesc(x, y, z float64) (float64, float64, float64) {
 	var inputData [3]float64 = [3]float64{x, y, z}
 
-	for j:=0; j<len(inputData)-1; j++ {
-		for i:=0; i<len(inputData)-1; i++ {
+	for j := 0; j < len(inputData)-1; j++ {
+		for i := 0; i < len(inputData)-1; i++ {
 			if inputData[i] < inputData[i+1] {
 				inputData[i], inputData[i+1] = inputData[i+1], inputData[i]
 			}
@@ -101,10 +101,10 @@ func main() {
 
 	if ourTriangle.IsThisRightTriangle() {
 		fmt.Println("Submited sides makes a right triangle.")
-		area,err = ourTriangle.GetRightTriangleArea()
+		area, err = ourTriangle.GetRightTriangleArea()
 	} else {
 		fmt.Println("Your triangle is not right. Let's check if this is a regular triangle, or not a triangle at all...")
-		area,err = ourTriangle.GetArea()
+		area, err = ourTriangle.GetArea()
 		if err == nil {
 			fmt.Println("This is a regular, but not right triangle.")
 		}
