@@ -17,32 +17,17 @@ func main() {
 
 func luhnChecksum(cardNumber string) bool {
 	var filteredCardNumber string //Here we will store clean card number, without spaces and letters
-	var cardNumberSlice []int //Here we will store card number digits
-	var allDigitSum int = 0
+	var allDigitSum int
 
 	re := regexp.MustCompile("\\D") //Pattern for preg replace. Any symbol NOT a digit will be ignored
 	filteredCardNumber = re.ReplaceAllString(cardNumber, "")
 
-	//Let's make a slice from a string. It's SAFE to use len() here, because at our string ONLY digits are left!
-	cardNumberSlice = make([]int, len(filteredCardNumber))
+	//Here we moving on string, but from end to start:
+	for i:=len(filteredCardNumber) - 2; i >= 0; i -= 2 {
+		evenFromEndValue := int(filteredCardNumber[i] - '0')
+		oddFromEndValue := int(filteredCardNumber[i+1] - '0')
 
-	//Fill our slice with digits:
-	for key, value := range filteredCardNumber {
-		cardNumberSlice[key] = int(value - '0') //WHAT A FUCK IS GOING ON?
-	}
-
-	//Reverse our slice from end to start:
-	for i, j := 0, len(cardNumberSlice)-1; i < j; i,j = i+1, j-1 {
-		cardNumberSlice[i], cardNumberSlice[j] = cardNumberSlice[j], cardNumberSlice[i]
-	}
-
-	for i:=0; i<len(cardNumberSlice); i++ {
-		//We will now effectively iterate slice from end to start, and will take only EVEN elements:
-		if i%2 !=0 { //Because EVEN elements has ODD indexes :)
-			cardNumberSlice[i] = evaluateCurrentValue(cardNumberSlice[i])
-		}
-
-		allDigitSum += cardNumberSlice[i]
+		allDigitSum += evaluateCurrentValue(evenFromEndValue) + oddFromEndValue
 	}
 
 	if allDigitSum%10 == 0 {
