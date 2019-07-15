@@ -1,7 +1,7 @@
 /**
-	Given a positive integer n> 1. Print all prime factors of this number in non-decreasing order.
-	Complexity of algorithm should be O(logn).
- */
+Given a positive integer n> 1. Print all prime factors of this number in non-decreasing order.
+Complexity of algorithm should be O(logn).
+*/
 package main
 
 import (
@@ -38,12 +38,12 @@ func primeFactorsSearch(valueToFactorize int, foundPrimeFactors ...[]int) []int 
 	sqrtOfInputValue = math.Sqrt(float64(valueToFactorize))
 	maxPossibleFactor = int(math.Round(sqrtOfInputValue))
 
-	for i:=2; i <= maxPossibleFactor; i++ {
-		if valueToFactorize % i == 0 {
+	for i := 2; i <= maxPossibleFactor; i++ {
+		if valueToFactorize%i == 0 {
 			//Factor found! Let's add this devider to collection of previously found (if they are) factors:
 			alreadyFound = append(alreadyFound, i)
 			//... and run this function again, but this time with argument = result of division of initial value by found divider:
-			return primeFactorsSearch(valueToFactorize / i, alreadyFound)
+			return primeFactorsSearch(valueToFactorize/i, alreadyFound)
 		}
 	}
 
